@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pre-training without Natural Images</title>
+    <link rel="stylesheet" type="text/css" href="./pvg.css">
+    <link rel="shortcut icon" type="image/png" href="./img/cc_logo_1_crop.png">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<script type="text/javascript" src="./header.js"></script>
+
+<style>
+a.myclass {
+    color:#DE382D;
+    text-decoration: underline
+}
+</style>
+
+<style>
+a.link {
+    text-decoration: underline
+}
+</style>
+
+
+<h1 align="center" style="font-size: 30pt;"><b>Pre-training Vision Transformers with Very Limited Synthesized Images</b></h1><br/>
+<center>
+    <font color="#c7254e"><b>International Conference on Computer Vision (ICCV)</b></font><br><br>
+    <a href="https://ryoo-portfolio.netlify.app" class="">Ryo Nakamura</a><sup>1,2</sup> &emsp; 
+    <a href="http://hirokatsukataoka.net/" class="">Hirokatsu Kataoka</a><sup>1</sup> &emsp; 
+    Sora Takashima<sup>1,3</sup> &emsp; 
+    Edgar Josafat Martinez Noriega<sup>1,3</sup>
+    <a href="https://www.rio.gsic.titech.ac.jp/jp/member/yokota.html" class="">Rio Yokota</a><sup>1,2</sup> &emsp; 
+    <a href="https://mmai.tech/" class="">Nakamasa Inoue</a><sup>4</sup> &emsp; <br>
+    1: AIST &emsp; 2: Fukuoka Univ. &emsp; 3: TITech<br><br>
+    
+    <section class="delta">
+        <div class="container">
+            <a href="https://openaccess.thecvf.com/content/ICCV2023/html/Nakamura_Pre-training_Vision_Transformers_with_Very_Limited_Synthesized_Images_ICCV_2023_paper.html"><button class="btn btn-gray">Paper</button></a>
+            <a href="https://github.com/ryoo-nakamura/OFDB"><button class="btn btn-gray">Code</button></a>
+            <a href="https://drive.google.com/drive/folders/1KZfmu1OJKQZhwFKgiJx2mx6VFqq-pFTB"><button class="btn btn-gray">Dataset</button></a>
+<!--             <a href="#dataset"><button class="btn btn-gray">Dataset</button></a> <br> -->
+<!--             <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf"><button class="btn btn-gray">Oral</button></a> -->
+<!--             <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf"><button class="btn btn-gray">Poster</button></a> -->
+            <a href="https://drive.google.com/file/d/1x7eV8jvZOrpdrQFP4tgfiH7HS9wIg53d/view"><button class="btn btn-gray">Supp</button></a>
+<!--             <a href="https://hirokatsukataoka16.github.io/Vision-Transformers-without-Natural-Images/"><button class="btn btn-gray">Related Work</button></a> -->
+        </div>
+    </section>
+    <!--<a href="https://openaccess.thecvf.com/content/ACCV2020/papers/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.pdf" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Paper</a>
+    <a href="https://github.com/hirokatsukataoka16/FractalDB" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Code</a>
+    <a href="#dataset" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Dataset</a>
+    <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_oral.pdf" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Oral</a>
+    <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_poster.pdf" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Poster</a>
+    <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_fractaldb_supplementary.pdf" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supp. Mat.</a>
+    <a href="https://hirokatsukataoka16.github.io/Vision-Transformers-without-Natural-Images/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Related Work</a>-->
+    <br><br>
+<!--     <iframe width="800" height="450" src="https://www.youtube.com/embed/d-NagM4nGIQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    <!--<img src="./img/teaser.png" style="width: 100%;"/>-->
+</center>
+
+<center>
+        <img src="./img/ICCV2023_poster.pdf" style="width: 100%;"/>
+</center>
+
+<br>
+<h2>Abstract</h2>
+<p>
+Formula-driven supervised learning (FDSL) is a pre-training method that relies on synthetic images generated from mathematical formulae such as fractals. Prior work on FDSL has shown that pre-training vision transformers on such synthetic datasets can yield competitive accuracy on a wide range of downstream tasks. These synthetic images are categorized according to the parameters in the mathematical formula that generate them. In the present work, we hypothesize that the process for generating different instances for the same category in FDSL, can be viewed as a form of data augmentation. We validate this hypothesis by replacing the instances with data augmentation, which means we only need a single image per category. Our experiments show that this one-instance fractal database (OFDB) performs better than the original dataset where instances were explicitly generated. We further scale up OFDB to 21,000 categories and show that it matches, or even surpasses, the model pre-trained on ImageNet-21k in ImageNet-1k fine-tuning. The number of images in OFDB is 21k, whereas ImageNet-21k has 14M. This opens new possibilities for pre-training vision transformers with much smaller datasets.
+</p>
+
+<br><br>
+<center>
+        <img src="./img/top.png" style="width: 95%;"/>
+</center>
+
+
+<br>
+<h2>Why fractal pre-training with one-instance per category can train visual representation?</h2>
+We consider instance augmentation of FractalDB. In FractalDB, the number of images is increased by (i) image rotation (x4), (ii) IFS parameters fluctuation (x25), and (iii) patch patterns (x10) from a representative image of the category found with category search. FractalDB is pre-trained as a dataset of 1,000 instances of pre-processed images, but in a simple view, these could be replaced by data augmentation. Details will be discussed later, and Table 6 shows that the accuracy is almost the same with and without Rotation (2D-OFDB w/o rotation 84.0 vs. w/ rotation 84.1 on CIFAR-100). On the other hand, the performance rates with IFS fluctuation are significantly lower (2D-OFDB w/o IFS 84.0 vs. w/ IFS 81.6 on CIFAR-100). From these observations, we believe that a pre-training dataset with fewer instances like a dataset consists of one-instance per category and using basic data augmentation are the key technologies to reduce training time to an equivalent or better accuracy level. As the result, an image augmentation with patch patterns were newly implemented as random patch/texture augmentation so that they could be implemented within data augmentation, and it became clear that accuracy could be improved while reducing the data size to 0.1% amount.
+
+<!-- <h2>Framework</h2>
+Proposed pre-training without natural images based on fractals, which is a natural formula existing in the real world (Formula-driven Supervised Learning). We automatically generate a large-scale labeled image dataset based on an iterated function system (IFS). (Bottom-left image)
+The pre-training framework with Fractal geometry for feature representation learning. We can enhance natural image recognition by pre-training without natural images. (Bottom-right image) Accuracy transition among ImageNet-1k, FractalDB-1k and training from scratch.
+<br><br><br> -->
+<br><br>
+<figure style="text-align: center;">
+    <img src="./img/framework.png" style="width: 70%;" alt="image0"/>
+    <figcaption>Table 1: Effects of data augmentation for fractal images. <br>Data-efficient image Transformer (DeiT) augmentation set- ting is used as a default.</figcaption>
+</figure>
+
+<br><br>
+<h2>Experimental Results</h2>
+<b>Fine-tuning results(Table 2)</b> 
+We conducted finetuning experiments on the CIFAR-10 (C10), CIFAR-100 (C100), Cars, Flowers, ImageNet-100 (IN100), Places30 (P30), and Pascal VOC 2012 (VOC12) datasets. The proposed OFDBs are compared with six pre-training datasets: ImageNet-1k , Places-365 , PASS , FractalDB-1k , RCDB-1k , and ExFractalDB-1k . The results using a subset of ImageNet, which consists of 1,000 images obtained by randomly sampling one image per category, are also reported. Note that &loz; indicates the subset. This subset is the same size as OFDBs. Here, we assign the ViT-Tiny (ViT-T) model with standard DeiT training configurations, including hyperparameters.
+<br>
+we see that OFDBs achieved a higher accuracy with million-scale FDSL datasets, such as ExFractalDB-1k. Although they did not always surpass SL and SSL methods, note that they often achieved similar performance rates with only 1,000 images for pre-training, which is approximately 0.078% of images as compared to ImageNet-1k (1.28M images). We also see a significant difference between OFDBs and the ImageNet-1k &loz; subset in terms of average accuracy. In the proposed methods, the configuration of 2D-OFDB-1k with random pattern augmentation has a better average rate in the table. Thereafter, in the experiments, we assigned random pattern augmentation for 2D-OFDB.
+<br><br>
+<figure style="text-align: center;">
+    <figcaption>Table 2: Comparison of pre-training methods. Best values at each dataset scale are in bold. &loz; indicates a subset that consists of one randomly sampled image per class. ViT-T is used for all experiments. SL: supervised learning using crossentropy loss, SSL: self-supervised learning using DINO. Fine-tuning accuracies are reported..</figcaption>
+    <img src="./img/results1.png" style="width: 80%;" alt="image1"/>
+</figure>
+
+<br><br>
+<b>Scaling experiments on ImageNet-1k (Table 3). </b> In order to investigate the scalability of OFDBs, we increased the number of categories from 1,000 to 21,000 and applied these categories to ViT-T and ViT-Base (ViT-B) in Table 2. For comparison, the results of ImageNet-21k, FractalDB-21k, ExFractalDB-21k, and RCDB-21k are reported. ImageNet-21k consists of 14M images, and the other three FDSL datasets consist of 21M images. The results for the ImageNet-21k &loz; subset involving one image per category are also reported.
+<br>
+With ViT-T, 2D-OFDB-21k outperforms FractalDB-21k (73.8 vs. 73.0) and is comparable with ExFractalDB- 21k (73.7 vs. 73.6). However, we see the performance gap between 2D-OFDB-21k and ImageNet-21k (73.8 vs. 74.1). This is because the images of ImageNet-21k for pre-training and the images of ImageNet-1k for fine-tuning overlap. This gap is reversed in ViT-B, where 2D-OFDB- 21k is recorded 0.4 points higher than ImageNet-21k on ImageNet-1k fine-tuning. Moreover, the 3D-OFDB-21k pre-trained model was recorded 0.9 point higher than the model pre-trained on ImageNet-21k. Note that the computational time for pre-training in terms of GPU hours is reduced by 78.7% (1,088 vs. 5,120 in terms of GPU hours). We clarified that ViT pre-training can be more efficient in terms of both data amount and computational time.
+<br><br>
+<figure style="text-align: center;">
+    <figcaption>Table 3: Scaled models/datasets with combinations of 21k categories and ViT-T/B models are used in ImageNet-1k fine-tuning. We also list GPU hours, batch size (‘Batch’), and number of iterations (‘#Iterations’) in ViT-B pre-training.</figcaption>
+    <img src="./img/results2.png" style="width: 80%;" alt="image2"/>
+</figure>
+
+
+<br><br>
+<b>Training on small datasets (Table 4). </b>
+Instance Discrim- ination with Multi-crop and CutMix (IDMM), proposed by Cao et al., which requires only 2,040 images for pre-training, is one of the most successful approaches for training ViTs on small datasets. In Table 4, we compare OFDBs with IDMM. Here, we used the fine-tuning con- figuration of IDMM for a fair comparison, i.e., 800-epoch pre-training and 200-epoch fine-tuning on seven datasets of Flowers, Pets, DTD, Indoor-67, CUB, Aircraft, and Cars. Note that IDMM has two settings: internal pre-training and external pre-training. We used PVT v2 for the ViT model, as in Cao et al. The former uses the same dataset for pre-training and fine-tuning. This performs well, as reported in IDMM. For the latter, we used an ImageNet subset, which consists of 2,040 randomly sampled images (with two or three images per category). We refer to this as IDMM-ImageNet.
+<br>
+The results are shown in Table 4. Although we used a limited number of images to pre-train a ViT, the re- sult is much higher than the accuracy of training from scratch using the same procedure of 200-epoch fine-tuning. The proposed method is also better than the other well- organized pre-training methods, including IDMM [42] and SimCLR [10], with fewer pre-training images. In comparison with IDMM-ImageNet, 2D-OFDB-1k pre-training still performs at a higher accuracy, indicating that 2D-OFDB-1k pre-training is highly beneficial, even when using a limited number of synthesized images.
+
+<br><br>
+<figure style="text-align: center;">
+    <figcaption>Table 4: Pre-training with small datasets. The pre-training and fine-tuning setting in [42] is used for evaluation. Note that the values ‘2,040 – 8,144’ correspond to the number of pre-training images at each dataset. Best and second-best scores are in underlined bold and bold, respectively.</figcaption>
+    <img src="./img/results3.png" style="width: 90%;" alt="image2"/>
+</figure>
+
+<br><br><br>
+<h2>Exploratory Study</h2>
+<b>One-instance setting on real-image dataset (Table 5)</b>.
+ We conduct some additional experiments on the ImageNet-1k♢ subset. Here, we convert RGB images to gray-scale, binary, and Canny edge images. Table 5 shows the results of pre-training with these converted images. This table also shows the results for 2D/3D-OFDB-1k.
+We see that binary and Canny images performed better than RGB images when we used these images in the pre-training phase. However, none of the images outperformed 2D/3D-OFDBs. These results are consistent with the claim that “object contours are what matter in FDSL datasets”, as noted in a previous paper. In fact, in order to pre-train a ViT model with one instance per category, an RGB representation is not enough on ImageNet-1k. A contouremphasized dataset with a Canny edge detector is more efficient for pre-training a ViT, which is good at learning object contours. In the one-instance setting, we found that the pre-training effect with contour-emphasized image representations was also improved.
+
+<br><br>
+<figure style="text-align: center;">
+    <figcaption>Table 5: Exploratory experiment on one-instance ImageNet pre-training. Preprocessing ImageNet-1k♢ (1-instance) dataset with RGB images, we convert {gray, binary, canny} images for pre-training for each dataset. In this experiment, ImageNet-1k♢ (Canny) achieved the best accuracy in ImageNet-1k♢ sets {RGB, gray, binary, canny} .</figcaption>
+    <img src="./img/results4.png" style="width: 50%;" alt="image2"/>
+</figure>
+<br><br><br>
+
+<b>Category selection with data pruning (Figure 1,2).</b>
+We have employed 'accidentally' found fractal categories in FDSL pre-training. However, a one-instance setting in FDSL does not required to augment image instances, that is, it makes easier to evaluate image categories on the FDSL dataset. Therefore, we test whether category selection can improve the pre-training effects of OFDB with the data pruning method. We used the EL2N score as the metric for data pruning. The EL2N score is calculated by several training steps of the model, but in the case of OFDB, since the dataset size is small, we calculated the EL2N score after 1,000 epochs of training.
+<br>
+We analyzeed tendency of selected categories from 21k to 1k category dataset. 
+results of category selection with data pruning showsed the relationship between easy sample usage with data pruning and fine-tuning accuracy. 
+The results describes the balanced dataset (50:50 with easy:hard samples) recorded the best accuracy (84.35) by comparing to other settings. On the contrary, a dataset consists of hard samples (10:90 with easy:hard samples) is lower fine-tuning accuracy (83.38) than the OFDB-1k pre-trained ViT-T. The 50:50 with easy:hard samples is shown in Figure 2.
+
+<br><br>
+<div style="display: flex;">
+    <!-- 列1 -->
+    <div style="flex: 1; text-align: center;">
+        <img src="./img/results5.png" alt="画像1" width="70%"/>
+        <p>Figure 1: Data pruning for category selection on <br>2D-OFDB from 21k to 1k categories.</p>
+    </div>
+    <!-- 列2 -->
+    <div style="flex: 1; text-align: left; position: relative;">
+        <img src="img/results5_2.pdf" alt="画像2" width="110%" style="margin-left: -40px;"/>
+        <figcaption style="position: absolute; bottom: 30px; left: 0; width: 100%; text-align: center;">
+            Figure 2: 50:50 with easy:hard samples.
+        </figcaption>
+    </div>
+</div>
+<br><br><br>
+
+<b>Processing time on dataset rendering. (Table 6:)</b>
+Table 6 shows a time comparison for dataset rendering in FDSL datasets. The table indicates that the proposed one-instance FDSL datasets, 2D/3D-OFDB-1k, are ×6.9/10.4 faster than the rendering time with FractalDB-1k and ExFractalDB-1k, respectively. By considering the rendering time, the speed increases are ×41.1/135.7 faster. Note that the number of 3D points in an image is much smaller than that of 2D ren- dering points. Therefore, the 3D-OFDB-1k is more efficient than 2D-OFDB-1k for total time.
+<br><br>
+<figure style="text-align: center;">
+    <figcaption>Table 6: Datasets rendering time by full-instance
+(FractalDB/ExFractalDB-1k) and one-instance (2D/3D- OFDB-1k). We separately show fractal category search (Search), image rendering (Render), and total time (Total). The values are given in hours.</figcaption>
+    <img src="./img/results6.png" style="width: 50%;" alt="image2"/>
+</figure>
+
+<br><br><br>
+
+<h2>Citation</h2>
+<!-- @article{KataokaIJCV2022,<br>
+&emsp;author     = {Kataoka, Hirokatsu and Okayasu, Kazushige and Matsumoto, Asato and Yamagata, Eisuke and Yamada, Ryosuke and Inoue, Nakamasa and Nakamura, Akio and Satoh, Yutaka},<br>
+&emsp;title      = {Pre-training without Natural Images},<br>
+&emsp;journal    = {International Journal of Computer Vision (IJCV)},<br>
+&emsp;year       = {2022}<br>
+} -->
+<!-- <br><br> -->
+@inproceedings{Nakamura_2023_ICCV,<br>
+&emsp;author     = {Nakamura, Ryo and Kataoka, Hirokatsu and Takashima, Sora and Noriega, Edgar Josafat Martinez and Yokota, Rio and Inoue, Nakamasa},<br>
+&emsp;title      = {Pre-training Vision Transformers with Very Limited Synthesized Images},<br>
+&emsp;booktitle    = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},<br>
+&emsp;month    = {October},<br>
+&emsp;year       = {2023}<br>
+&emsp;pages       = {20360-20369}<br>
+}
+<br><br>
+
+<a name="dataset"><h2>Dataset Download</h2></a>
+<!-- <ul>
+    <li>
+        FractalDB-1k (1k categories x 1k instances; Total 1M images).
+        <a href="https://drive.google.com/file/d/1KKqz0H7i_TXFMa2oJtcfry9bmAxyS_SS/view?usp=sharing">[Dataset (13GB)]</a>
+    </li>
+    <li>
+        FractalDB-60 (60 well-known categories x 1k instances; Total 60k images).
+        <a href="https://drive.google.com/file/d/1F0aEogTScpABjJhNZJaCFT-J8mkdP86o/view?usp=sharing">[Dataset (1.2GB)]</a>
+    </li>
+</ul>
+<br><br> -->
+
+<div style="display: flex;">
+    <!-- 列1 -->
+    <div style="flex: 1; text-align: center;">
+        <img src="img/OFDB1k.png" alt="画像1" width="98%"/>
+        <!-- テキストリンク1 -->
+        <p>Download link :
+            <a href="https://drive.google.com/file/d/1tVsOJlju5ATXj8GT0Qt9TzdBopuxGm6D/view" class=""> [2D-OFDB-1k]</a>
+            <a href="https://drive.google.com/file/d/1LV5_hBrDCB4_WyhSh65NA7TvinXMuWRh/view" class=""> [2D-OFDB-21k]</a>
+        </p>
+    </div>
+    <!-- 列2 -->
+    <div style="flex: 1; text-align: center;">
+        <img src="img/3D-OFDB1k.png" alt="画像2" width="98%"/>
+        <!-- テキストリンク2 -->
+        <p>Download link :
+            <a href="https://drive.google.com/file/d/1tVsOJlju5ATXj8GT0Qt9TzdBopuxGm6D/view" class=""> [3D-OFDB-1k]</a>
+            <a href="https://drive.google.com/file/d/1LV5_hBrDCB4_WyhSh65NA7TvinXMuWRh/view" class=""> [3D-OFDB-21k]</a>
+        </p>
+    </div>
+</div>
+
+
+<h2>Acknowledgement</h2></a>
+<ul>
+    <li> This work is based on results obtained from a project, JPNP20006, commissioned by the New Energy and Industrial Technology Development Organization (NEDO).</li>
+    <li> This work was supported by JSPS KAKENHI Grant Number JP19H01134.</li>
+    <li> Computational resource of AI Bridging Cloud Infrastructure (ABCI) provided by National Institute of Advanced Industrial Science and Technology (AIST) was used.</li>
+</ul>
+
+<br><br><br>
+<script type="text/javascript" src="./footer.js"></script>
+</body></html>

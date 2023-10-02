@@ -30,7 +30,7 @@ a.link {
 
 <h1 align="center" style="font-size: 30pt;"><b>Pre-training Vision Transformers with Very Limited Synthesized Images</b></h1><br/>
 <center>
-    <font color="#c7254e"><b>Accepted by International Conference on Computer Vision (ICCV)</b></font><br><br>
+    <font color="#c7254e"><b>International Conference on Computer Vision (ICCV)</b></font><br><br>
     <a href="https://ryoo-portfolio.netlify.app" class="">Ryo Nakamura</a><sup>1,2</sup> &emsp; 
     <a href="http://hirokatsukataoka.net/" class="">Hirokatsu Kataoka</a><sup>1</sup> &emsp; 
     Sora Takashima<sup>1,3</sup> &emsp; 
@@ -75,7 +75,7 @@ Formula-driven supervised learning (FDSL) is a pre-training method that relies o
 
 <br><br>
 <center>
-        <img src="./img/top.png" style="width: 95%;"/>
+        <img src="./img/top.pdf" style="width: 95%;"/>
 </center>
 
 
@@ -83,10 +83,6 @@ Formula-driven supervised learning (FDSL) is a pre-training method that relies o
 <h2>Why fractal pre-training with one-instance per category can train visual representation?</h2>
 We consider instance augmentation of FractalDB. In FractalDB, the number of images is increased by (i) image rotation (x4), (ii) IFS parameters fluctuation (x25), and (iii) patch patterns (x10) from a representative image of the category found with category search. FractalDB is pre-trained as a dataset of 1,000 instances of pre-processed images, but in a simple view, these could be replaced by data augmentation. Details will be discussed later, and Table 6 shows that the accuracy is almost the same with and without Rotation (2D-OFDB w/o rotation 84.0 vs. w/ rotation 84.1 on CIFAR-100). On the other hand, the performance rates with IFS fluctuation are significantly lower (2D-OFDB w/o IFS 84.0 vs. w/ IFS 81.6 on CIFAR-100). From these observations, we believe that a pre-training dataset with fewer instances like a dataset consists of one-instance per category and using basic data augmentation are the key technologies to reduce training time to an equivalent or better accuracy level. As the result, an image augmentation with patch patterns were newly implemented as random patch/texture augmentation so that they could be implemented within data augmentation, and it became clear that accuracy could be improved while reducing the data size to 0.1% amount.
 
-<!-- <h2>Framework</h2>
-Proposed pre-training without natural images based on fractals, which is a natural formula existing in the real world (Formula-driven Supervised Learning). We automatically generate a large-scale labeled image dataset based on an iterated function system (IFS). (Bottom-left image)
-The pre-training framework with Fractal geometry for feature representation learning. We can enhance natural image recognition by pre-training without natural images. (Bottom-right image) Accuracy transition among ImageNet-1k, FractalDB-1k and training from scratch.
-<br><br><br> -->
 <br><br>
 <figure style="text-align: center;">
     <img src="./img/framework.png" style="width: 70%;" alt="image0"/>
@@ -117,8 +113,8 @@ With ViT-T, 2D-OFDB-21k outperforms FractalDB-21k (73.8 vs. 73.0) and is compara
 
 
 <br><br>
-<b>Training on small datasets (Table 4). </b>
-Instance Discrim- ination with Multi-crop and CutMix (IDMM), proposed by Cao et al., which requires only 2,040 images for pre-training, is one of the most successful approaches for training ViTs on small datasets. In Table 4, we compare OFDBs with IDMM. Here, we used the fine-tuning con- figuration of IDMM for a fair comparison, i.e., 800-epoch pre-training and 200-epoch fine-tuning on seven datasets of Flowers, Pets, DTD, Indoor-67, CUB, Aircraft, and Cars. Note that IDMM has two settings: internal pre-training and external pre-training. We used PVT v2 for the ViT model, as in Cao et al. The former uses the same dataset for pre-training and fine-tuning. This performs well, as reported in IDMM. For the latter, we used an ImageNet subset, which consists of 2,040 randomly sampled images (with two or three images per category). We refer to this as IDMM-ImageNet.
+<b>Pre-training with limited data (Table 4). </b>
+Instance Discrimination with Multi-crop and CutMix (IDMM), proposed by Cao et al., which requires only 2,040 images for pre-training, is one of the most successful approaches for training ViTs on small datasets. In Table 4, we compare OFDBs with IDMM. Here, we used the fine-tuning configuration of IDMM for a fair comparison, i.e., 800-epoch pre-training and 200-epoch fine-tuning on seven datasets of Flowers, Pets, DTD, Indoor-67, CUB, Aircraft, and Cars. Note that IDMM has two settings: internal pre-training and external pre-training. We used PVT v2 for the ViT model, as in Cao et al. The former uses the same dataset for pre-training and fine-tuning. This performs well, as reported in IDMM. For the latter, we used an ImageNet subset, which consists of 2,040 randomly sampled images (with two or three images per category). We refer to this as IDMM-ImageNet.
 <br>
 The results are shown in Table 4. Although we used a limited number of images to pre-train a ViT, the re- sult is much higher than the accuracy of training from scratch using the same procedure of 200-epoch fine-tuning. The proposed method is also better than the other well- organized pre-training methods, including IDMM and SimCLR, with fewer pre-training images. In comparison with IDMM-ImageNet, 2D-OFDB-1k pre-training still performs at a higher accuracy, indicating that 2D-OFDB-1k pre-training is highly beneficial, even when using a limited number of synthesized images.
 
@@ -126,52 +122,6 @@ The results are shown in Table 4. Although we used a limited number of images to
 <figure style="text-align: center;">
     <figcaption>Table 4: Pre-training with small datasets. The pre-training and fine-tuning setting in is used for evaluation. Note that the values ‘2,040 – 8,144’ correspond to the number of pre-training images at each dataset. Best and second-best scores are in underlined bold and bold, respectively.</figcaption>
     <img src="./img/results3.png" style="width: 90%;" alt="image2"/>
-</figure>
-
-<br><br><br>
-<h2>Exploratory Study</h2>
-<b>One-instance setting on real-image dataset (Table 5)</b>.
- We conduct some additional experiments on the ImageNet-1k♢ subset. Here, we convert RGB images to gray-scale, binary, and Canny edge images. Table 5 shows the results of pre-training with these converted images. This table also shows the results for 2D/3D-OFDB-1k.
-We see that binary and Canny images performed better than RGB images when we used these images in the pre-training phase. However, none of the images outperformed 2D/3D-OFDBs. These results are consistent with the claim that “object contours are what matter in FDSL datasets”, as noted in a previous paper. In fact, in order to pre-train a ViT model with one instance per category, an RGB representation is not enough on ImageNet-1k. A contouremphasized dataset with a Canny edge detector is more efficient for pre-training a ViT, which is good at learning object contours. In the one-instance setting, we found that the pre-training effect with contour-emphasized image representations was also improved.
-
-<br><br>
-<figure style="text-align: center;">
-    <figcaption>Table 5: Exploratory experiment on one-instance ImageNet pre-training. Preprocessing ImageNet-1k♢ (1-instance) dataset with RGB images, we convert {gray, binary, canny} images for pre-training for each dataset. In this experiment, ImageNet-1k♢ (Canny) achieved the best accuracy in ImageNet-1k♢ sets {RGB, gray, binary, canny} .</figcaption>
-    <img src="./img/results4.png" style="width: 50%;" alt="image2"/>
-</figure>
-<br><br><br>
-
-<b>Category selection with data pruning (Figure 1,2).</b>
-We have employed 'accidentally' found fractal categories in FDSL pre-training. However, a one-instance setting in FDSL does not required to augment image instances, that is, it makes easier to evaluate image categories on the FDSL dataset. Therefore, we test whether category selection can improve the pre-training effects of OFDB with the data pruning method. We used the EL2N score as the metric for data pruning. The EL2N score is calculated by several training steps of the model, but in the case of OFDB, since the dataset size is small, we calculated the EL2N score after 1,000 epochs of training.
-<br>
-We analyzeed tendency of selected categories from 21k to 1k category dataset. 
-results of category selection with data pruning showsed the relationship between easy sample usage with data pruning and fine-tuning accuracy. 
-The results describes the balanced dataset (50:50 with easy:hard samples) recorded the best accuracy (84.35) by comparing to other settings. On the contrary, a dataset consists of hard samples (10:90 with easy:hard samples) is lower fine-tuning accuracy (83.38) than the OFDB-1k pre-trained ViT-T. The 50:50 with easy:hard samples is shown in Figure 2.
-
-<br><br>
-<div style="display: flex;">
-    <!-- 列1 -->
-    <div style="flex: 1; text-align: center;">
-        <img src="./img/results5.png" alt="画像1" width="70%"/>
-        <p>Figure 1: Data pruning for category selection on <br>2D-OFDB from 21k to 1k categories.</p>
-    </div>
-    <!-- 列2 -->
-    <div style="flex: 1; text-align: left; position: relative;">
-        <img src="img/results5_2.pdf" alt="画像2" width="110%" style="margin-left: -40px;"/>
-        <figcaption style="position: absolute; bottom: 30px; left: 0; width: 100%; text-align: center;">
-            Figure 2: 50:50 with easy:hard samples.
-        </figcaption>
-    </div>
-</div>
-<br><br><br>
-
-<b>Processing time on dataset rendering. (Table 6:)</b>
-Table 6 shows a time comparison for dataset rendering in FDSL datasets. The table indicates that the proposed one-instance FDSL datasets, 2D/3D-OFDB-1k, are ×6.9/10.4 faster than the rendering time with FractalDB-1k and ExFractalDB-1k, respectively. By considering the rendering time, the speed increases are ×41.1/135.7 faster. Note that the number of 3D points in an image is much smaller than that of 2D ren- dering points. Therefore, the 3D-OFDB-1k is more efficient than 2D-OFDB-1k for total time.
-<br><br>
-<figure style="text-align: center;">
-    <figcaption>Table 6: Datasets rendering time by full-instance
-(FractalDB/ExFractalDB-1k) and one-instance (2D/3D- OFDB-1k). We separately show fractal category search (Search), image rendering (Render), and total time (Total). The values are given in hours.</figcaption>
-    <img src="./img/results6.png" style="width: 50%;" alt="image2"/>
 </figure>
 
 <br><br><br>

@@ -19,6 +19,24 @@ a.myclass {
     color:#DE382D;
     text-decoration: underline
 }
+ iframe {
+    width: 100%;
+    height: auto;
+  }
+    .responsive-iframe {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9のアスペクト比 */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .responsive-iframe iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
 
 <style>
@@ -61,13 +79,17 @@ a.link {
 <!--     <a href="http://hirokatsukataoka.net/pdf/accv20_kataoka_fractaldb_supplementary.pdf" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Supp. Mat.</a> -->
 <!--     <a href="https://hirokatsukataoka16.github.io/Vision-Transformers-without-Natural-Images/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Related Work</a> -->
     <br><br>
-<!--     <iframe width="800" height="450" src="https://www.youtube.com/embed/d-NagM4nGIQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    <!--<img src="./img/teaser.png" style="width: 100%;"/>-->
+    
+   <div class="responsive-iframe">
+  <iframe width="1120" height="630" src="https://www.youtube.com/embed/BzgNBwZt1W4?si=cMYiWL1L06md-V6m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+
 </center>
 
-<center>
+<!-- <center>
         <img src="./img/ICCV2023_poster.pdf" style="width: 100%;"/>
-</center>
+</center> -->
 
 <br>
 <h2>Abstract</h2>

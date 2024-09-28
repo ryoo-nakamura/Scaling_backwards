@@ -1,2 +1,2 @@
-# Pre-training Vision Transformers with Very Limited Synthesized Images
-see [Project Page](https://ryoo-nakamura.github.io/One-instance-FractalDB/)
+# Scaling Backwards: Minimal Synthetic Pre-training?
+see [Project Page](https://ryoo-nakamura.github.io/Scaling_backwards/)
